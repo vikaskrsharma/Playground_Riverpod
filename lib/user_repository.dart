@@ -7,8 +7,8 @@ final userRepositryProvider = Provider(
 );
 
 class UserRepository {
-  Future<User> fetchUserData() {
-    const url = 'https://jsonplaceholder.typicode.com/users/3';
+  Future<User> fetchUserData(String input) {
+    var url = 'https://jsonplaceholder.typicode.com/users/$input';
     return http.get(Uri.parse(url)).then(
           (value) => User.fromJson(value.body),
         );
