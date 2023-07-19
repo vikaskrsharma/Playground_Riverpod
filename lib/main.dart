@@ -5,10 +5,10 @@ import 'package:playground_riverpod/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:playground_riverpod/user_repository.dart';
 
-final userProvider = FutureProvider(
-  (ref) {
+final userProvider = FutureProvider.family(
+  (ref, String userNo) {
     final userRepository = ref.watch(userRepositryProvider);
-    return userRepository.fetchUserData();
+    return userRepository.fetchUserData(userNo);
   },
 );
 
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: "Flutter Riverpod",
-      home: HomePage(),
+      home: MyHomePage(),
     );
   }
 }
