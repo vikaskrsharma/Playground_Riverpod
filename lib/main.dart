@@ -2,24 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:playground_riverpod/home.dart';
 import 'package:playground_riverpod/user.dart';
+import 'package:http/http.dart' as http;
+import 'package:playground_riverpod/user_repository.dart';
 
-// Provider
-// final nameProvider = Provider<String>((ref) => "riverpod");
-
-// StateProvider
-// final nameProvider = StateProvider<String?>(
-//   (ref) => null,
-// );
-
-//StateNotifier and StateNotifierProvider
-final userProvider = StateNotifierProvider<UserNotifier, User>(
-  (ref) => UserNotifier(
-    const User(name: '', age: 0),
-  ),
+final userProvider = FutureProvider(
+  (ref) {
+    final userRepository = ref.watch(userRepositryProvider);
+    return userRepository.fetchUserData();
+  },
 );
-
-// ChangeNotifierProvider
-// FutureProvider
 
 void main() {
   runApp(
